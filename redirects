@@ -1,0 +1,11 @@
+This is the code for a redirect done in JavaScript.
+    <script type="text/javascript">
+        alert("Message To User");
+        window.location="http://www.google.com";
+    </script>
+
+JavaScript will need to be allowed to run in the browser before this code will run.
+
+
+This code will redirect user HTML meta.
+    <meta http-equiv="refresh" content="0"; URL='http://www.google.com'" />
