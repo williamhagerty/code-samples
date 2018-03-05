@@ -1,0 +1,38 @@
+Use the following code to load a DataTable on a page from a SharePoint list.
+
+function loadav8ddr() {
+	var call = $.ajax ({
+		url: url += "_api/web/lists/getbytitle('AV8LineDDRs')/items?$top=5000",
+		type: "GET",
+		dataType: "json",
+		headers: {
+			Accept: "application/json;odata=verbose"
+		}
+	});
+	call.done(function (data,textStatus, jqXHR) {
+		$('#av8ddr').dataTable ({
+			"bDestroy": true,
+			"bProcessing": true,
+			"aaData": data.d.results,
+			"aoColumnDefs": [{ "bVisible": false, "aTargets": [0] }],  // This line hides the ID column [0] from view on the datatable.
+			"aoColumns": [
+				{ "mData": "ID" },
+				{ "mData": "DDRNumber" },
+				{ "mData": "Aircraft" },
+				{ "mData": "Buno" },
+				{ 
+					"mData": "Date",
+					"mRender": function(data, type, full) {
+						return moment(full.Date).format("MM/DD/YYYY")
+					}
+				},
+				{ "mData": "Trade" },
+				{ "mData": "ShiftAffected" },
+				{ "mData": "CurrentWorkPhase" },
+			]
+		});
+	});
+	call.fail(function (jqXHR, textStatus, errorThrown) {
+		alert ("Error retrieving list items: " + jqXHR.responseText);
+	});
+}
